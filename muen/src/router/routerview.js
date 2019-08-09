@@ -1,9 +1,10 @@
 import React from 'react'
 import{Route,Redirect,Switch} from 'react-router-dom'
-export default function routeview(props) {
+export default function Routeview(props) {
     let {routers}=props
-        let redirects=routers.filter((item,index)=>item.to).map((item,index)=><Redirect key={index} from={item.to} to={item.path}/>)
-        let routes=routers.filter((item,index)=>!item.to)
+    let redirects=routers.filter((item,index)=>item.to).map((item,index)=>
+    <Redirect key={index} from={item.to} to={item.path}/>)
+    let routes=routers.filter((item,index)=>!item.to)
     return (
         <div>
              <Switch>

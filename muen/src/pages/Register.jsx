@@ -4,7 +4,7 @@ export default class Register extends Component {
     render() {
         return (
             <div>
-                12
+                注册
             </div>
         )
     }
