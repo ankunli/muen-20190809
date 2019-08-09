@@ -3,9 +3,6 @@ import { Layout, Menu, Breadcrumb, Icon } from 'antd';
 import '../css/home.css';
 const { SubMenu } = Menu;
 const { Header, Content, Sider} = Layout;
-
-
-
 export default class Home extends Component {
     render() {
         return (

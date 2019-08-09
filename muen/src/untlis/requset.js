@@ -1,15 +1,13 @@
 import axios from 'axios'
 let request=axios.create({
-    baseURL:process.env.NODE_ENV === "production" ? "" : "/api",
+    // baseURL:process.env.NODE_ENV === "production" ? "" : "/api",
     timeout:5000
 })
 request.interceptors.request.use(function(config){
     config.headers.Bearer =window.localStorage.getItem('token')
     return config
-},
-()=>{
-    return Promise.reject(error);
 }
+
 )
 request.interceptors.response.use((response) => {
 
