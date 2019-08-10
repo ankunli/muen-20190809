@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import {post} from '../untlis/requset'
+import { NavLink } from 'react-router-dom'
 import '../css/login.css';
 
 export default class Login extends Component {
@@ -35,6 +36,9 @@ export default class Login extends Component {
                             type="password"
                             placeholder="密码"
                         />
+                    </Form.Item>
+                    <Form.Item>
+                        <NavLink to='/register' className='register'>还没有账号？现在去注册一个</NavLink>
                     </Form.Item>
                     <Form.Item>
                         <Button type="primary" htmlType="submit" className="login-form-button" onClick={
