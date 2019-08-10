@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import { Layout, Menu, Breadcrumb, Icon } from 'antd';
+import {get} from '../untlis/requset'
 import '../css/home.css';
 const { SubMenu } = Menu;
 const { Header, Content, Sider} = Layout;
 export default class Home extends Component {
     render() {
         return (
-            <div className='home'>
+            <div className='wrap'>
                 <Layout style={{ height: '100%' }}>
                     <Header className="header" style={{ background: '#2a82e4' }}>
                         <div className="logo"/>
@@ -58,5 +59,11 @@ export default class Home extends Component {
                 </Layout>
             </div>
         )
+    }
+    componentDidMount(){
+            get("/user").then(res=>{
+
+                console.log(res)
+            })
     }
 }

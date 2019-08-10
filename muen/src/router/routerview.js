@@ -6,7 +6,7 @@ export default function Routeview(props) {
     <Redirect key={index} from={item.to} to={item.path}/>)
     let routes=routers.filter((item,index)=>!item.to)
     return (
-        <div>
+        <>
              <Switch>
                     {
                         routes&&routes.map((item,index)=><Route key={index} path={item.path} render={(props)=>{
@@ -14,6 +14,6 @@ export default function Routeview(props) {
                         }}/>).concat(redirects)
                     }
              </Switch>
-        </div>
+        </>
     )
 }

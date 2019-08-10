@@ -4,7 +4,7 @@ let request=axios.create({
     timeout:5000
 })
 request.interceptors.request.use(function(config){
-    config.headers.Bearer =window.localStorage.getItem('token')
+    config.headers.authorization= "Bearer "+window.localStorage.getItem('token')
     return config
 }
 

@@ -15,7 +15,7 @@ import {
     Upload
 } from 'antd';
 import '../css/register.css'
-
+import {post} from '../untlis/requset'
 const { Option } = Select;
 
 
@@ -23,8 +23,13 @@ export default class Register extends Component {
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
+        username:"",
+        password:"",
+        realname:"",
+        val:1
     };
     render() {
+        let {username,password,realname,val}=this.state
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -48,28 +53,53 @@ export default class Register extends Component {
             },
         };
         return (
+            
             <div className='register'>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                     <Form.Item label="用户名">
-                        <Input placeholder="请输入用户名" />
+                        <Input placeholder="请输入用户名"
+                        name='username'
+                        value={username}
+                        onChange={
+                            this.changeItem.bind(this)
+                        }
+                        />
                     </Form.Item>
                     <Form.Item label="密码" hasFeedback >
-                        <Input.Password placeholder="请输入密码" />
+                        <Input.Password placeholder="请输入密码" 
+                           name='password'
+                           value={password}
+                           onChange={
+                               this.changeItem.bind(this)
+                           }
+                           />
                     </Form.Item>
                     <Form.Item label="确认密码" hasFeedback>
                         <Input.Password onBlur={this.handleConfirmBlur} placeholder="请再次输入密码" />
                     </Form.Item>
                     <Form.Item label="真实姓名">
-                        <Input placeholder="请输入您的真实姓名" />
+                        <Input placeholder="请输入您的真实姓名"
+                          name='realname'
+                          value={realname}
+                          onChange={
+                              this.changeItem.bind(this)
+                          }
+                        />
                     </Form.Item>
                     <Form.Item label="用户权限">
                         <Select
                             placeholder="请选择用户权限"
-                            onChange={this.handleSelectChange}
+                          onChange={
+                              (e)=>{
+                                    this.setState({
+                                        val:e
+                                    })
+                              }
+                          }
                         >
-                            <Option value="male">超级管理员</Option>
-                            <Option value="female">组长</Option>
-                            <Option value="female">普通用户</Option>
+                            <Option value="1">超级管理员</Option>
+                            <Option value="2">组长</Option>
+                            <Option value="3">普通用户</Option>
                         </Select>
                     </Form.Item>
                     <Form.Item label="电话">
@@ -94,12 +124,34 @@ export default class Register extends Component {
                         <NavLink to='/login' className='toLogin'>已有账号，现在去登录</NavLink>
                     </Form.Item>
                     <Form.Item>
-                        <Button type="primary" htmlType="submit" className='loginBtn'>
+                        <Button type="primary" htmlType="submit" className='loginBtn' onClick={this.register.bind(this)}>
                             注册
                         </Button>
                     </Form.Item>
                 </Form>
             </div>
         )
+    }
+    register(){
+        let {username,password,realname,val}=this.state
+       post("/register",{
+        userName: username,
+        realName: realname,
+        password: password,
+        userType: val
+       }).then(res=>{
+           if(res.code===1){
+            this.props.history.push(
+                {
+                    pathname:"/login"
+                }
+            )
+           }
+       })
+    }
+    changeItem(e){
+        this.setState({
+            [e.target.name]:e.target.value
+        })
     }
 }
