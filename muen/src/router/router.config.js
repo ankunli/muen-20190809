@@ -15,7 +15,7 @@ const routers=[
         component:Login
     },
     {   to:'/',
-        path:"/register"
-    }
+        path:"/home"
+    },
 ]
 export default routers

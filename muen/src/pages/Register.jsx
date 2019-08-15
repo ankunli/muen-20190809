@@ -3,19 +3,14 @@ import { NavLink } from 'react-router-dom'
 import {
     Form,
     Input,
-    Tooltip,
     Icon,
-    Cascader,
     Select,
-    Row,
-    Col,
     Checkbox,
     Button,
-    AutoComplete,
     Upload
 } from 'antd';
 import '../css/register.css'
-import {post} from '../untlis/requset'
+import { post } from '../untlis/requset'
 const { Option } = Select;
 
 
@@ -23,13 +18,13 @@ export default class Register extends Component {
     state = {
         confirmDirty: false,
         autoCompleteResult: [],
-        username:"",
-        password:"",
-        realname:"",
-        val:1
+        username: "",
+        password: "",
+        realname: "",
+        val: 1
     };
     render() {
-        let {username,password,realname,val}=this.state
+        let { username, password, realname } = this.state
         const formItemLayout = {
             labelCol: {
                 xs: { span: 24 },
@@ -53,49 +48,49 @@ export default class Register extends Component {
             },
         };
         return (
-            
+
             <div className='register'>
                 <Form {...formItemLayout} onSubmit={this.handleSubmit}>
                     <Form.Item label="用户名">
                         <Input placeholder="请输入用户名"
-                        name='username'
-                        value={username}
-                        onChange={
-                            this.changeItem.bind(this)
-                        }
+                            name='username'
+                            value={username}
+                            onChange={
+                                this.changeItem.bind(this)
+                            }
                         />
                     </Form.Item>
                     <Form.Item label="密码" hasFeedback >
-                        <Input.Password placeholder="请输入密码" 
-                           name='password'
-                           value={password}
-                           onChange={
-                               this.changeItem.bind(this)
-                           }
-                           />
+                        <Input.Password placeholder="请输入密码"
+                            name='password'
+                            value={password}
+                            onChange={
+                                this.changeItem.bind(this)
+                            }
+                        />
                     </Form.Item>
                     <Form.Item label="确认密码" hasFeedback>
                         <Input.Password onBlur={this.handleConfirmBlur} placeholder="请再次输入密码" />
                     </Form.Item>
                     <Form.Item label="真实姓名">
                         <Input placeholder="请输入您的真实姓名"
-                          name='realname'
-                          value={realname}
-                          onChange={
-                              this.changeItem.bind(this)
-                          }
+                            name='realname'
+                            value={realname}
+                            onChange={
+                                this.changeItem.bind(this)
+                            }
                         />
                     </Form.Item>
                     <Form.Item label="用户权限">
                         <Select
                             placeholder="请选择用户权限"
-                          onChange={
-                              (e)=>{
+                            onChange={
+                                (e) => {
                                     this.setState({
-                                        val:e
+                                        val: e
                                     })
-                              }
-                          }
+                                }
+                            }
                         >
                             <Option value="1">超级管理员</Option>
                             <Option value="2">组长</Option>
@@ -117,7 +112,7 @@ export default class Register extends Component {
                     </Form.Item>
                     <Form.Item {...tailFormItemLayout}>
                         <Checkbox>
-                            我已经看过协议了 <a href="#">《用户协议》</a>
+                            我已经看过协议了 <a href="/aa">《用户协议》</a>
                         </Checkbox>
                     </Form.Item>
                     <Form.Item>
@@ -132,26 +127,26 @@ export default class Register extends Component {
             </div>
         )
     }
-    register(){
-        let {username,password,realname,val}=this.state
-       post("/register",{
-        userName: username,
-        realName: realname,
-        password: password,
-        userType: val
-       }).then(res=>{
-           if(res.code===1){
-            this.props.history.push(
-                {
-                    pathname:"/login"
-                }
-            )
-           }
-       })
+    register() {
+        let { username, password, realname, val } = this.state
+        post("/register", {
+            userName: username,
+            realName: realname,
+            password: password,
+            userType: val
+        }).then(res => {
+            if (res.code === 1) {
+                this.props.history.push(
+                    {
+                        pathname: "/login"
+                    }
+                )
+            }
+        })
     }
-    changeItem(e){
+    changeItem(e) {
         this.setState({
-            [e.target.name]:e.target.value
+            [e.target.name]: e.target.value
         })
     }
 }
