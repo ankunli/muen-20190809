@@ -1,22 +1,19 @@
 import React, { Component } from 'react'
-import {Input, Divider, Button, Table, Modal } from 'antd';
+import { Input, Divider, Button, Table, Modal } from 'antd';
 import { get, post } from '../untlis/requset'
 import { connect } from 'react-redux'
-import Header from '../component/Header';//头部组件
-import Nav from '../component/Nav';//导航列表组件
-import '../css/home.css';//用户页面样式
-// import isLogin from '../isLogin/Logins'
+import '../css/userAll.css';//用户页面样式
 const { Search } = Input
 class UserAll extends Component {
     //修改用户信息
     showModal(record) {
-        console.log(record)
-        this.setState({
-            visible: true,
-            userId: record.key,
-            userName: record.userName,
-            phoneNum: record.phoneNum
-        });
+        // console.log(record)
+        // this.setState({
+        //     visible: true,
+        //     userId: record.key,
+        //     userName: record.userName,
+        //     phoneNum: record.phoneNum
+        // });
     };
     //删除用户
     Delete_user(userId) {
@@ -84,54 +81,47 @@ class UserAll extends Component {
             },
         ]
     };
-   
+
     render() {
         let { userName, phoneNum, userId } = this.state
         return (
-            <div className='userList'>
-                <Header />
-                <main>
-                    <Nav />
-                    <div className='userListCon con'>
-                        <div className='searchBox'>
-                            {/* 搜索用户 */}
-                            <Search
-                                className='search'
-                                placeholder="用户名称/姓名/电话"
-                                onSearch={value => {
-                                    if (value) {
-                                        get(`/user/search?input=${value}`).then(res => {
-                                            if (res.result.length > 0) {
-                                                let userListNew = [];
-                                                res.result.forEach(item => {
-                                                    userListNew.push({
-                                                        key: item.userId,
-                                                        userName: item.userName,
-                                                        userType: item.userType,
-                                                        userIcon: item.userIcon,
-                                                        phoneNum: item.phoneNum,
-                                                        realName: item.realName
-                                                    })
-                                                })
-                                                this.setState({
-                                                    userList: userListNew
-                                                });
-                                                this.forceUpdate()
-                                            }
+            <>
+                <div className='searchBox'>
+                    {/* 搜索用户 */}
+                    <Search
+                        className='search'
+                        placeholder="用户名称/姓名/电话"
+                        onSearch={value => {
+                            if (value) {
+                                get(`/user/search?input=${value}`).then(res => {
+                                    if (res.result.length > 0) {
+                                        let userListNew = [];
+                                        res.result.forEach(item => {
+                                            userListNew.push({
+                                                key: item.userId,
+                                                userName: item.userName,
+                                                userType: item.userType,
+                                                userIcon: item.userIcon,
+                                                phoneNum: item.phoneNum,
+                                                realName: item.realName
+                                            })
                                         })
+                                        this.setState({
+                                            userList: userListNew
+                                        });
                                     }
+                                })
+                            }
 
-                                }}
-                            />
-                            {/* 添加成员 */}
-                            <Button className='addMember'>+添加成员</Button>
-                        </div>
-                        <div className='userLists'>
-                            {/* 用户列表 */}
-                            <Table columns={this.state.columns} dataSource={this.state.userList} />
-                        </div>
-                    </div>
-                </main>
+                        }}
+                    />
+                    {/* 添加成员 */}
+                    <Button className='addMember'>+添加成员</Button>
+                </div>
+                <div className='userLists'>
+                    {/* 用户列表 */}
+                    <Table columns={this.state.columns} dataSource={this.state.userList}/>
+                </div>
                 {/* 修改弹出框 */}
                 <Modal
                     title="修改用户信息"
@@ -161,7 +151,7 @@ class UserAll extends Component {
                         }}
                     />
                 </Modal>
-            </div>
+            </>
         )
     }
     componentDidMount() {

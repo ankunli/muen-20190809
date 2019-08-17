@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { Menu, Icon, Layout } from 'antd';
 import { NavLink } from 'react-router-dom';
+import RouterView from '../router/routerview';
 
 const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 export default class Nav extends Component {
     render() {
+        let { children } = this.props;
         return (
             <nav id='nav'>
                 <Sider>
@@ -26,7 +28,7 @@ export default class Nav extends Component {
                             }
                         >
                             <Menu.Item key="1">
-                                <NavLink to='/userAll'>所有用户</NavLink>
+                                <NavLink to='/home/userAll'>所有用户</NavLink>
                             </Menu.Item>
                         </SubMenu>
                         <SubMenu
@@ -39,12 +41,14 @@ export default class Nav extends Component {
                             }
                         >
                             <Menu.Item key="5">
-                                <NavLink to='/groupList'>小组列表</NavLink>
+                                <NavLink to='/home/groupList'>小组列表</NavLink>
                             </Menu.Item>
                             <Menu.Item key="6">
-                                <NavLink to='/memberManagement'> 成员列表</NavLink>
+                                <NavLink to='/home/memberManagement'> 成员列表</NavLink>
                             </Menu.Item>
                         </SubMenu>
+                        <RouterView routers={children} />
+
                     </Menu>
                 </Sider>
             </nav>
