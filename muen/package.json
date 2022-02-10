@@ -37,7 +37,7 @@
     ]
   },
   "devDependencies": {
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "react-hot-loader": "^4.5.3"
   },
   "proxy": "http://localhost:7001"
